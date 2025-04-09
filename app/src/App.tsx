@@ -1,18 +1,13 @@
 import st from "./App.module.css";
+import Timer from "./components/Timer";
+import TodoList from "./components/TodoList";
 
 function App() {
-  let name = "리액트";
-
-  const style = {
-    backgroundColor: "black",
-    color: "white",
-    padding: "20px",
-  };
-
   return (
     <div className={st.container}>
-      <h1 className={st.test}>Hello, {name === "리액트" && "REACT"}</h1>
-      <p style={style}>반갑습니다.</p>
+      <h1>오늘 할일</h1>
+      <TodoList />
+      <Timer />
     </div>
   );
 }
