@@ -1,3 +1,9 @@
+type SetModalDataActionType = {
+  boardId: string;
+  listId: string;
+  task: TaskType;
+};
+
 type TaskType = {
   taskId: string;
   taskName: string;
@@ -24,4 +30,29 @@ type BoardType = {
   lists: ListType[];
 };
 
-export type { TaskType, LogItemType, ListType, BoardType };
+type DeleteListActionType = {
+  boardId: string;
+  listId: string;
+};
+
+type AddListActionType = {
+  boardId: string;
+  list: ListType;
+};
+
+type AddTaskActionType = {
+  boardId: string;
+  listId: string;
+  task: TaskType;
+};
+
+export type {
+  TaskType,
+  LogItemType,
+  ListType,
+  BoardType,
+  DeleteListActionType,
+  SetModalDataActionType,
+  AddListActionType,
+  AddTaskActionType,
+};
