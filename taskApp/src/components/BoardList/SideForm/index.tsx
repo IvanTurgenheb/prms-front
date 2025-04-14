@@ -29,7 +29,7 @@ const SideForm = ({ inputRef, setIsFormOpen }: SideFormProps) => {
         logId: uuidv4(),
         logMessage: `게시판 등록: ${inputText}.`,
         logAuthor: "User",
-        logTimeStamp: new Date().toISOString(),
+        logTimeStamp: Date.now(),
       })
     );
   };

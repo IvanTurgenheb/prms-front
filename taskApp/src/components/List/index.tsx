@@ -24,7 +24,7 @@ const List = ({ list, boardId }: ListProps) => {
         logId: uuidv4(),
         logMessage: `리스트 삭제하기: ${list.listName}.`,
         logAuthor: "User",
-        logTimeStamp: new Date().toISOString(),
+        logTimeStamp: Date.now(),
       })
     );
   };

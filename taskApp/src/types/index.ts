@@ -15,7 +15,7 @@ type LogItemType = {
   logId: string;
   logMessage: string;
   logAuthor: string;
-  logTimeStamp: string;
+  logTimeStamp: number;
 };
 
 type ListType = {

@@ -51,7 +51,7 @@ const DropDownFrom = ({
           logId: v4(),
           logMessage: `리스트 추가하기: ${text}.`,
           logAuthor: "User",
-          logTimeStamp: new Date().toISOString(),
+          logTimeStamp: Date.now(),
         })
       );
     } else {
@@ -73,7 +73,7 @@ const DropDownFrom = ({
           logId: v4(),
           logMessage: `일 생성하기: ${text}.`,
           logAuthor: "User",
-          logTimeStamp: new Date().toISOString(),
+          logTimeStamp: Date.now(),
         })
       );
     }
