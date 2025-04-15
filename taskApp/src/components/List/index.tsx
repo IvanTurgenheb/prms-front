@@ -33,7 +33,7 @@ const List = ({ list, boardId }: ListProps) => {
   const handleTaskChange = (
     boardId: string,
     listId: string,
-    taskId: string,
+    _taskId: string,
     task: TaskType
   ) => {
     dispatch(setModalData({ boardId, listId, task }));
