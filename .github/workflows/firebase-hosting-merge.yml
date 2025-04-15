@@ -17,4 +17,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TASKAPP_DA0DD }}
           channelId: live
           projectId: taskapp-da0dd
-          path: "./taskApp"
+          entryPoint: "./taskApp"
