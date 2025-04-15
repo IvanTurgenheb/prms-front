@@ -1,16 +1,22 @@
 import { useRef, useState } from "react";
-import { useTypedSelector } from "../../hooks/redux";
+import { useTypedDispatch, useTypedSelector } from "../../hooks/redux";
 import SideForm from "./SideForm";
-import { FiPlusCircle } from "react-icons/fi";
+import { FiLogIn, FiPlusCircle } from "react-icons/fi";
+import { GoSignOut } from "react-icons/go";
 import {
   addButton,
   addSection,
   boardItem,
   boardItemActive,
   container,
+  signInAndOutText,
   title,
 } from "./BoardList.css";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import clsx from "clsx";
+import app from "../../firebase";
+import { clearUser, setUser } from "../../store/slices/userSlice";
+import useAuth from "../../hooks/useAuth";
 
 type BoardListProps = {
   activeBoardId: string;
@@ -19,6 +25,9 @@ type BoardListProps = {
 
 const BoardList = ({ activeBoardId, setActiveBoardI }: BoardListProps) => {
   const { boardArray } = useTypedSelector((state) => state.boards);
+  const { isAuth } = useAuth();
+
+  const dispatch = useTypedDispatch();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -27,6 +36,32 @@ const BoardList = ({ activeBoardId, setActiveBoardI }: BoardListProps) => {
     setIsFormOpen(!isFormOpen);
     setTimeout(() => inputRef.current?.focus());
   };
+
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  const onClickLogin = () => {
+    signInWithPopup(auth, provider)
+      .then((userCredential) => {
+        console.log(userCredential);
+
+        dispatch(
+          setUser({
+            id: userCredential.user.uid,
+            email: userCredential.user.email,
+          })
+        );
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const onClickSignOut = () => {
+    dispatch(clearUser());
+  };
+
+  console.log("isAuth", isAuth);
 
   return (
     <div className={container}>
@@ -48,6 +83,16 @@ const BoardList = ({ activeBoardId, setActiveBoardI }: BoardListProps) => {
           <SideForm inputRef={inputRef} setIsFormOpen={setIsFormOpen} />
         ) : (
           <FiPlusCircle className={addButton} onClick={onClickPlusCircle} />
+        )}
+
+        {isAuth ? (
+          <span className={signInAndOutText} onClick={onClickSignOut}>
+            로그아웃
+          </span>
+        ) : (
+          <span className={signInAndOutText} onClick={onClickLogin}>
+            로그인
+          </span>
         )}
       </div>
     </div>

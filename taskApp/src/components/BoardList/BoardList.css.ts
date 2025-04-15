@@ -61,3 +61,10 @@ export const smallTitle = style({
   color: vars.color.brightText,
   fontSize: vars.fontSizing.T3,
 });
+
+export const signInAndOutText = style({
+  color: vars.color.brightText,
+  fontSize: vars.fontSizing.T3,
+  marginLeft: vars.spacing.medium,
+  cursor: "pointer",
+});
