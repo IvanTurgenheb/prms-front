@@ -25,6 +25,15 @@ type DeleteBoardActionType = {
   boardId: string;
 };
 
+type SortActionType = {
+  boardIdx: number;
+  droppableIdStart: string;
+  droppableIdEnd: string;
+  droppableIdxStart: number;
+  droppableIdxEnd: number;
+  draggableId: string;
+};
+
 const initialState: InitialStateType = {
   modalActive: false,
   boardArray: [
@@ -55,13 +64,13 @@ const initialState: InitialStateType = {
           listName: "list 1",
           tasks: [
             {
-              taskId: "task-0",
+              taskId: "task-2",
               taskName: "Task 1",
               taskDescription: "Description for Task 1",
               taskOwner: "User A",
             },
             {
-              taskId: "task-1",
+              taskId: "task-3",
               taskName: "Task 2",
               taskDescription: "Description for Task 2",
               taskOwner: "User B",
@@ -159,6 +168,35 @@ const boardSlice = createSlice({
           : board
       );
     },
+    sort: (state, { payload }: PayloadAction<SortActionType>) => {
+      // 같은 리스트
+      if (payload.droppableIdStart == payload.droppableIdEnd) {
+        const listStart = state.boardArray[payload.boardIdx].lists.find(
+          (list) => list.listId == payload.droppableIdStart
+        ); // 현재 드래그중인 리스트
+
+        const card = listStart?.tasks.splice(payload.droppableIdxStart, 1); // 현재 드래중인 테스크를 list배열에서 제거
+        listStart?.tasks.splice(payload.droppableIdxEnd, 0, ...card!); // [시작 인덱스, 제거할 인덱스 개수, ...item]
+
+        // const arr = [1, 2, 3, 4];
+        // arr.splice(2, 0, 99);
+        // console.log(arr); // [1, 2, 99, 3, 4] 이런식으로 되는거임
+      }
+
+      // 다른 리스트
+      if (payload.droppableIdStart != payload.droppableIdEnd) {
+        const listStart = state.boardArray[payload.boardIdx].lists.find(
+          (list) => list.listId == payload.droppableIdStart
+        ); // 현재 드래그중인 리스트
+
+        const card = listStart?.tasks.splice(payload.droppableIdxStart, 1);
+        const listEnd = state.boardArray[payload.boardIdx].lists.find(
+          (list) => list.listId == payload.droppableIdEnd
+        );
+
+        listEnd?.tasks.splice(payload.droppableIdxEnd, 0, ...card!);
+      }
+    },
   },
 });
 
@@ -171,5 +209,6 @@ export const {
   deleteTask,
   updateTask,
   deleteBoard,
+  sort,
 } = boardSlice.actions;
 export const boardReducer = boardSlice.reducer;

@@ -1,3 +1,4 @@
+import { Draggable } from "@hello-pangea/dnd";
 import { container } from "./Task.css";
 
 type TaskProps = {
@@ -10,10 +11,19 @@ type TaskProps = {
 
 const Task = ({ taskName, taskDescription, boardId, id, idx }: TaskProps) => {
   return (
-    <div className={container}>
-      <div>{taskName}</div>
-      <div>{taskDescription}</div>
-    </div>
+    <Draggable index={idx} draggableId={id}>
+      {(draggableProvider) => (
+        <div
+          className={container}
+          ref={draggableProvider.innerRef}
+          {...draggableProvider.draggableProps}
+          {...draggableProvider.dragHandleProps}
+        >
+          <div>{taskName}</div>
+          <div>{taskDescription}</div>
+        </div>
+      )}
+    </Draggable>
   );
 };
 
