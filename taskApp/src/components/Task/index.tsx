@@ -9,7 +9,7 @@ type TaskProps = {
   idx: number;
 };
 
-const Task = ({ taskName, taskDescription, boardId, id, idx }: TaskProps) => {
+const Task = ({ taskName, taskDescription, id, idx }: TaskProps) => {
   return (
     <Draggable index={idx} draggableId={id}>
       {(draggableProvider) => (

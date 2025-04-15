@@ -1,8 +1,7 @@
 import { useRef, useState } from "react";
 import { useTypedDispatch, useTypedSelector } from "../../hooks/redux";
 import SideForm from "./SideForm";
-import { FiLogIn, FiPlusCircle } from "react-icons/fi";
-import { GoSignOut } from "react-icons/go";
+import { FiPlusCircle } from "react-icons/fi";
 import {
   addButton,
   addSection,
