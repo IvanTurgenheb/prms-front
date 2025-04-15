@@ -16,6 +16,7 @@ import { addLogger } from "./store/slices/loggerSlice";
 import { DragDropContext } from "@hello-pangea/dnd";
 import { v4 } from "uuid";
 
+// 환경변수 추가
 const App = () => {
   const [isLoggerOpen, setIsLoggerOpen] = useState(false);
   const [activeBoardId, setActiveBoardId] = useState("board-0");
